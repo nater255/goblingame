@@ -4,3 +4,6 @@ c:\users\nathan rathbun\Projects\goblins\goblins\bin\Debug\goblins.pdb
 c:\users\nathan rathbun\Projects\goblins\goblins\obj\Debug\goblins.csprojResolveAssemblyReference.cache
 c:\users\nathan rathbun\Projects\goblins\goblins\obj\Debug\goblins.exe
 c:\users\nathan rathbun\Projects\goblins\goblins\obj\Debug\goblins.pdb
+C:\Users\Nathan Rathbun\Projects\goblingame\goblins\goblins\bin\Debug\goblins.exe.config
+C:\Users\Nathan Rathbun\Projects\goblingame\goblins\goblins\obj\Debug\goblins.exe
+C:\Users\Nathan Rathbun\Projects\goblingame\goblins\goblins\obj\Debug\goblins.pdb
