@@ -16,6 +16,25 @@ namespace goblins.Characters
         public List<string> attackFlavorText = new List<string>();  // Attack Flavor Text List
         public Random playerRNG = new Random();                     // RNG 
 
+        public Adventurer()                                         // Constructor
+        {
+            Console.WriteLine("  _______________        ______________         _____________         _____________ ");
+            Console.WriteLine(" |               |\\     |              |\\      |             |\\      |             |\\");
+            Console.WriteLine(" |    PALADIN    | |    |    WIZARD    | |     |    ROGUE    | |     |    MONK     | |");
+            Console.WriteLine(" | HP:12  Atk: 1 | |    | HP:7  Atk: 5 | |     | HP:10 Atk:2 | |     | HP:9 Atk:3  | |");
+            Console.WriteLine(" |_______________| |    |______________| |     |_____________| |     |_____________| |");
+            Console.WriteLine("  \\_______________\\|     \\______________\\|      \\_____________\\|      \\_____________\\|\n");
+
+            while (true)
+            {
+                ChooseRole((Console.ReadLine()).ToLower());
+                if (playerClass != "")
+                {
+                    break;
+                }
+            }
+        }
+
         public void ChooseRole(string roleName)                     // Set Player's Role and Stats
         {
             if (roleName == "paladin")

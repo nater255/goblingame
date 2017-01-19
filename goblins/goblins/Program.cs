@@ -11,11 +11,7 @@ namespace goblins
     {
         static void Main(string[] args)
         {
-            Adventurer player = new Adventurer();
-            Enemy goblin = new Enemy();
-
-            Random goblinRandomizer = new Random();             // Random Number Generator
-            int hitDamage = 0;                                  // Damage 
+            int hitDamage = 0;                                  // Damage variable to use for printing narrative
             string playerAction = "";                           // Player Attack/Heal Choice
 
             Console.WriteLine("  _________________________________________________________________________________ ");
@@ -24,25 +20,12 @@ namespace goblins
             Console.WriteLine(" |_________________________________________________________________________________| |");
             Console.WriteLine("  \\_________________________________________________________________________________\\|\n");
             Console.WriteLine("          Greetings, adventurer! Choose your class before you embark...        ");
-            Console.WriteLine("  _______________        ______________         _____________         _____________ ");
-            Console.WriteLine(" |               |\\     |              |\\      |             |\\      |             |\\");
-            Console.WriteLine(" |    PALADIN    | |    |    WIZARD    | |     |    ROGUE    | |     |    MONK     | |");
-            Console.WriteLine(" | HP:12  Atk: 1 | |    | HP:7  Atk: 5 | |     | HP:10 Atk:2 | |     | HP:9 Atk:3  | |");
-            Console.WriteLine(" |_______________| |    |______________| |     |_____________| |     |_____________| |");
-            Console.WriteLine("  \\_______________\\|     \\______________\\|      \\_____________\\|      \\_____________\\|\n");
 
-            while (true)
-            {
-                player.ChooseRole((Console.ReadLine()).ToLower());
-                if (player.playerClass != "")
-                {
-                    break;
-                }
-            }
+            Adventurer player = new Adventurer();               // Set up Player
+            Enemy goblin = new Enemy();                         // Set up goblin
 
             Console.WriteLine($"\n You are a mighty {player.playerClass} and have {player.hitPoints} health. Your attacks deal {player.damageModifier} bonus damage.\n");
             Console.WriteLine($" You are attacked by a band of goblins. What will you do, {player.playerClass}?");
-            goblin.SetUp();
 
             while (player.isAlive)
             {
@@ -57,15 +40,16 @@ namespace goblins
                     if (playerAction == "attack")
                     {
                         hitDamage = player.TakeDamage();
-                        Console.WriteLine($"\n {goblin.Attack()} {hitDamage} damage!\n");
+                        goblin.Attack(hitDamage);
                         if (player.HasDied())
                         {
                             break;
                         }
 
-                        if (goblin.TakeDamage(player.GiveDamage())) // Player attacks, Goblin Takes Damage, Is Goblin dead?
+                        hitDamage = player.GiveDamage();
+                        goblin.TakeDamage(hitDamage);
+                        if (goblin.IsGoblinDead())
                         {
-                            goblin.NewGoblin();
                             player.goblinsKilled += 1;
                             break;
                         }
@@ -80,7 +64,7 @@ namespace goblins
                         player.GetHeal();
 
                         hitDamage = player.TakeDamage();
-                        Console.WriteLine($"\n {goblin.Attack()} {hitDamage} damage!\n");
+                        goblin.Attack(hitDamage);
                         if (player.HasDied())
                         {
                             break;

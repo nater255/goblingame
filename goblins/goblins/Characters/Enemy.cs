@@ -13,7 +13,7 @@ namespace goblins.Characters
         public Random goblinRNG = new Random();
         public int hitPoints = 3;
 
-        public void SetUp()
+        public Enemy()                           // Constructor
         {
             reactionText.Add("The goblin screams and jumps back, but continues to attack.");
             reactionText.Add("The goblin falls to the ground, but quickly scrambles back to his feet, snarling.");
@@ -28,27 +28,32 @@ namespace goblins.Characters
             attackText.Add("The goblin screams a horrible battlecry and lashes out with a barbed whip for");
         }
 
-        public void React()
+        public void React()                      // Print I'm still alive message
         {
             Console.WriteLine($" {reactionText[goblinRNG.Next(0, 5)]}");
-        }
+        }                   
 
-        public string Attack()
+        public void Attack(int damageDealt)      // Goblin Attacks Player
         {
-            return attackText[goblinRNG.Next(1, 5)];
-        }
+            Console.WriteLine($"\n {attackText[goblinRNG.Next(1, 5)]} {damageDealt} damage!\n");
+        }   
 
-        public bool TakeDamage(int damageIn)
+        public void TakeDamage(int damageIn)     // Goblin takes damage from player
         {
             hitPoints -= damageIn;
+        }  
+
+        public bool IsGoblinDead()               // Checks if golin is dead
+        {
             if (hitPoints <= 0)
             {
+                NewGoblin();
                 return true;
             }
             return false;
-        }
+        }            
 
-        public void NewGoblin()
+        public void NewGoblin()                  // Creates a new Goblin
         {
             Console.WriteLine($" The goblin falls to the ground dead, but another rushes forward to take his place!");
             hitPoints = goblinRNG.Next(2, 8);
