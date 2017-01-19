@@ -140,10 +140,15 @@ namespace goblins
             return attackText[goblinRNG.Next(1, 5)];
         }
 
-        /*public int TakeDamage()
+        public bool TakeDamage(int damageIn)
         {
-            mimic player take damage method (need a death check too to preceed newgoblin?)
-        }*/
+            hitPoints -= damageIn;
+            if (hitPoints <= 0)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public void NewGoblin()
         {
@@ -151,7 +156,6 @@ namespace goblins
             hitPoints = goblinRNG.Next(2, 8);
         }
     }
-
 
     class Program
     {
@@ -164,9 +168,8 @@ namespace goblins
             int hitDamage = 0;                                  // Damage 
             string playerAction = "";                           // Player Attack/Heal Choice
 
-            /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ACTUAL GAME CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+            /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ACTUAL GAME CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
             Console.WriteLine("  _________________________________________________________________________________ ");
             Console.WriteLine(" |                                                                                 |\\");
             Console.WriteLine(" |            [GENERIC FANTASY GAME WHERE GOBLINS ARE MEAN TO YOU]                 | |");
@@ -212,12 +215,10 @@ namespace goblins
                             break;
                         }
 
-                        hitDamage = player.GiveDamage();
-                        goblin.hitPoints -= hitDamage;
-                        if (goblin.hitPoints <= 0)
+                        if (goblin.TakeDamage(player.GiveDamage())) // Player attacks, Goblin Takes Damage, Is Goblin dead?
                         {
-                            player.goblinsKilled += 1;
                             goblin.NewGoblin();
+                            player.goblinsKilled += 1;
                             break;
                         }
                         else
